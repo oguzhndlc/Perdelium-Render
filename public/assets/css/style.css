@@ -1,0 +1,332 @@
+/* =========================
+   HERO – SAHNE ALANI
+========================= */
+
+.hero {
+  position: relative;
+  min-height: 90vh;
+  background: radial-gradient(circle at top, #1c1c28, #0b0b10 70%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(201,162,77,0.15), transparent 60%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.hero-title span {
+  display: block;
+  color: var(--accent-gold);
+  font-weight: 400;
+}
+
+.hero-subtitle {
+  margin-top: 20px;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+
+.hero-actions {
+  margin-top: 35px;
+}
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* =========================
+   ÖNE ÇIKAN ESERLER
+========================= */
+
+.featured-plays {
+  padding: 80px 0;
+  background-color: #0c0c11;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 2rem;
+  color: var(--accent-gold);
+}
+
+.play-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: var(--bg-card);
+  box-shadow: 0 10px 30px rgba(0,0,0,.6);
+  transition: transform 0.4s ease;
+}
+
+.play-card img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  filter: brightness(0.75);
+  transition: 0.4s ease;
+}
+
+.play-card:hover img {
+  filter: brightness(1);
+  transform: scale(1.05);
+}
+
+.play-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,.85));
+}
+
+.play-info h5 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.play-info p {
+  margin: 6px 0 12px;
+  color: var(--text-muted);
+}
+@media (max-width: 768px) {
+  .play-card img {
+    height: 340px;
+  }
+}
+/* =========================
+   ESERLER SAYFASI
+========================= */
+
+.eserler-page {
+  padding: 60px 0;
+}
+
+.page-title {
+  margin-bottom: 30px;
+  color: var(--accent-gold);
+}
+
+.form-control,
+.form-select {
+  background-color: #14141b;
+  border: 1px solid #2a2a35;
+  color: var(--text-light);
+}
+
+.form-control::placeholder {
+  color: #888;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: #14141b;
+  color: var(--text-light);
+  border-color: var(--accent);
+  box-shadow: none;
+}
+/* =========================
+   ESER DETAY SAYFASI
+========================= */
+
+.eser-detay {
+  padding: 80px 0;
+}
+
+.eser-afis {
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.6);
+}
+
+.eser-baslik {
+  color: var(--accent-gold);
+  font-size: 2.5rem;
+}
+
+.eser-yazar {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.eser-aciklama {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.eser-meta span {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 14px;
+  background-color: var(--bg-card);
+  border-radius: 20px;
+}
+/* =========================
+   AUTH (LOGIN / REGISTER)
+========================= */
+
+.auth-page {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--bg-card);
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.7);
+  text-align: center;
+}
+
+.auth-card h2 {
+  color: var(--accent-gold);
+  margin-bottom: 25px;
+}
+
+.auth-card .form-control {
+  background-color: #14141b;
+  border: 1px solid #2a2a35;
+  color: var(--text-light);
+}
+
+.auth-card .form-control:focus {
+  border-color: var(--accent);
+  box-shadow: none;
+}
+
+.auth-link {
+  margin-top: 20px;
+  color: var(--text-muted);
+}
+
+.auth-link a {
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+/* =========================
+   PROFİL SAYFASI
+========================= */
+
+.profile-page {
+  padding: 60px 0;
+}
+
+.profile-container {
+  max-width: 800px;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.profile-card {
+  margin-right: 45px;
+  margin-bottom: 30px;
+  max-width: 500px;
+  background-color: var(--bg-card);
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.7);
+}
+
+.profile-card p {
+  font-size: 1.1rem;
+}
+
+.profile-card h3 {
+  color: var(--accent-gold);
+  margin-bottom: 20px;
+}
+/* Profil düzenleme animasyonu */
+#profileEditCard {
+  transition: all 0.3s ease;
+}
+
+#profileEditForm {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-top: 20px;
+}
+
+#profileEditForm button {
+  margin: 20px;
+  grid-row: span 2 ;
+  margin-top: 20px;
+  height: fit-content;
+  padding: 15px;
+}
+
+.profile-avatar-border {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a24d, #a67c2e);
+  transition: all 0.3s ease;
+  margin:10px;
+}
+.profile-avatar-border:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(201, 162, 77, 0.6);
+}
+.profile-avatar {
+  width: 205px;
+  height: 205px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* =========================
+   ESER YÖNETİMİ
+========================= */
+
+.eser-yonetim-page {
+  padding: 60px 0;
+}
+
+.yonetim-card {
+  background-color: var(--bg-card);
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.6);
+}
+
+.yonetim-card h3 {
+  color: var(--accent-gold);
+  margin-bottom: 20px;
+}
+/* =========================
+   GERİ BİLDİRİM
+========================= */
+
+.feedback-page {
+  padding: 60px 0;
+  max-width: 700px;
+}
+
+.feedback-card {
+  background-color: var(--bg-card);
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.6);
+}

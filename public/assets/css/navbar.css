@@ -1,0 +1,40 @@
+.tiyatro-navbar {
+  background: linear-gradient(180deg, #0f0f14, #15151d);
+  backdrop-filter: blur(4px);
+}
+
+.tiyatro-navbar .nav-link {
+  color: var(--text-light) !important;
+}
+
+.tiyatro-navbar .nav-link:hover {
+  color: var(--accent-gold) !important;
+}
+
+.tiyatro-navbar .dropdown-menu {
+  background-color: #14141b;
+}
+/* =========================
+   SCROLL EFFECT
+========================= */
+
+.tiyatro-navbar {
+  transition: all 0.35s ease;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.tiyatro-navbar.scrolled {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background: linear-gradient(180deg, #0b0b10, #101018);
+  box-shadow: 0 6px 25px rgba(0,0,0,.8);
+}
+
+.tiyatro-navbar.scrolled .navbar-brand {
+  font-size: 1rem;
+}
+
+.tiyatro-navbar .navbar-brand {
+  transition: font-size 0.3s ease;
+}
