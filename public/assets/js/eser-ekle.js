@@ -1,5 +1,7 @@
 const user = JSON.parse(localStorage.getItem("user"));
-if (!user) location.href = "/pages/login.html";
+const token = localStorage.getItem("access_token");
+
+if (!user || !token) location.href = "/pages/login.html";
 
 document.getElementById("eserForm").addEventListener("submit", e => {
   e.preventDefault();
@@ -12,7 +14,8 @@ document.getElementById("eserForm").addEventListener("submit", e => {
   fetch("/api/contents/create", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     },
     body: JSON.stringify({
       title: data.eserAd,

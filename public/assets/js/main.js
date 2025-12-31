@@ -50,6 +50,7 @@ function renderNavbarAuth() {
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("user");
       localStorage.removeItem("user_profiles");
+      localStorage.removeItem("access_token");
       location.reload();
     });
 

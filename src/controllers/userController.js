@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const supabase = require("../lib/supabase");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   try {
@@ -77,7 +78,6 @@ exports.login = async (req, res) => {
       });
     }
 
-    // 1️⃣ User + Profile birlikte çek
     const { data: users, error } = await supabase
       .from("users")
       .select(`
@@ -87,48 +87,38 @@ exports.login = async (req, res) => {
         name,
         surname,
         password_hash,
-        created_at,
-        user_profiles (
-          id,
-          phone,
-          avatar_url,
-          about,
-          insta_link,
-          web_link,
-          created_at,
-          updated_at
-        )
+        user_profiles (*)
       `)
       .or(`email.eq.${identifier},username.eq.${identifier}`)
       .limit(1);
 
-    if (error || !users || users.length === 0) {
-      return res.status(401).json({
-        error: "Kullanıcı adı/email veya şifre hatalı",
-      });
+    if (!users || users.length === 0) {
+      return res.status(401).json({ error: "Hatalı giriş" });
     }
 
     const user = users[0];
 
-    // 2️⃣ Şifre kontrol
     const isMatch = await bcrypt.compare(password, user.password_hash);
-
     if (!isMatch) {
-      return res.status(401).json({
-        error: "Kullanıcı adı/email veya şifre hatalı",
-      });
+      return res.status(401).json({ error: "Hatalı giriş" });
     }
 
-    // 3️⃣ Güvenlik
     delete user.password_hash;
+
+    // 🔐 JWT OLUŞTUR
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
     return res.status(200).json({
       success: true,
-      user,
+      token,
+      user
     });
 
   } catch (err) {
-    console.error("LOGIN ERROR:", err);
     return res.status(500).json({
       error: "Server error",
       message: err.message,

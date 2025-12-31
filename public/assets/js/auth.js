@@ -23,8 +23,9 @@ if (loginForm) {
     alert("Giriş başarısız");
     return;
   }
-  localStorage.setItem("user", JSON.stringify(data.user));
-  localStorage.setItem("user_profiles", JSON.stringify(data.user_profiles));
+
+    localStorage.setItem("access_token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
     window.location.href = "/index.html";
   });
 }
