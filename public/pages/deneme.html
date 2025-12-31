@@ -1,0 +1,38 @@
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/theme.css">
+     
+     <style>
+
+
+      </style>
+      
+      <div class="col-md-4">
+        <div class="play-card">
+          <div class="play-info">
+            <h5 id="scriptName"></h5>
+            <p id="scriptWriter"></p>
+            <p id="scriptExp"></p>
+            <button id="scriptDetails" class="btn btn-sm btn-outline-light">
+                Detay
+            </button>
+          </div>
+        </div>
+      </div>
+
+<script>
+    // Örnek veri
+    const script = {
+        name: "Macbeth",
+        writer: "William Shakespeare",
+        exp: "Macbeth, hırslı bir İskoç generalidir. Ülkesine sadık bir askerken, üç cadının kehanetiyle kral olma arzusu uyanır. Eşi Lady Macbeth'in de etkisiyle, Kral Duncan'ı öldürerek tahta geçer. Ancak suçluluk duygusu ve paranoya...",
+    };
+    
+    // HTML öğelerini doldur
+    document.getElementById("scriptName").innerText = script.name;
+    document.getElementById("scriptWriter").innerText = script.writer;
+    document.getElementById("scriptExp").innerText = script.exp;
+
+    document.getElementById("scriptDetails").addEventListener("click", function() {
+        window.location.href = "/pages/eser-detay.html";
+    });
+</script>

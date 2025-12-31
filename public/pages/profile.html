@@ -51,11 +51,20 @@
       <label class="form-label">Kullanıcı Adı</label>
       <input type="text" id="editUsername" class="form-control" required>
     </div>
+<div class="mb-3">
+  <label class="form-label">Telefon</label>
+  <div class="input-group">
+    <span style="color: wheat; background-color: #14141b; " class="input-group-text">+90</span>
+    <input
+      type="tel"
+      id="editPhone"
+      class="form-control"
+      placeholder="5xx xxx xx xx"
+      maxlength="12"
+    >
+  </div>
+</div>
 
-      <div class="mb-3">
-      <label class="form-label">Telefon</label>
-      <input type="number" id="editPhone" class="form-control">
-    </div>
           <div class="mb-3">
       <label class="form-label">Websitesi</label>
       <input type="text" id="editWebsite" class="form-control">
@@ -65,9 +74,15 @@
       <input type="text" id="editInstagram" class="form-control">
     </div>
     <div class="mb-3">
-      <label class="form-label">Hakkında</label>
-      <input type="text" id="editAbout" class="form-control">
-    </div>
+  <label class="form-label">Hakkında</label>
+  <textarea
+    id="editAbout"
+    class="form-control"
+    rows="4"
+    placeholder="Kendinizden kısaca bahsedin..."
+  ></textarea>
+</div>
+
         <div class="d-flex gap-2">
       <button class="btn btn-accent">Kaydet</button>
       <button type="button" class="btn btn-outline-light" id="cancelEditBtn">

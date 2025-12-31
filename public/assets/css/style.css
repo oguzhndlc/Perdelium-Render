@@ -57,10 +57,15 @@
 /* =========================
    ÖNE ÇIKAN ESERLER
 ========================= */
-
 .featured-plays {
   padding: 80px 0;
   background-color: #0c0c11;
+}
+
+.featured-plays .container .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
 }
 
 .section-title {
@@ -71,6 +76,9 @@
 }
 
 .play-card {
+  margin-left: 40px;
+    height: 300px; 
+    width: 250px;
   position: relative;
   overflow: hidden;
   border-radius: 12px;
@@ -79,18 +87,6 @@
   transition: transform 0.4s ease;
 }
 
-.play-card img {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  filter: brightness(0.75);
-  transition: 0.4s ease;
-}
-
-.play-card:hover img {
-  filter: brightness(1);
-  transform: scale(1.05);
-}
 
 .play-info {
   position: absolute;
@@ -105,14 +101,16 @@
   font-size: 1.2rem;
 }
 
-.play-info p {
+.play-info #scriptExp {
   margin: 6px 0 12px;
   color: var(--text-muted);
+  padding-right: 30px !important;
 }
-@media (max-width: 768px) {
-  .play-card img {
-    height: 340px;
-  }
+
+.play-info #scriptWriter {
+  margin: 6px 10px 12px;
+  font-weight: 700;  color: #fff3bd;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 /* =========================
    ESERLER SAYFASI
@@ -260,13 +258,34 @@
 }
 /* Profil düzenleme animasyonu */
 #profileEditCard {
+  max-width:max-content !important;
   transition: all 0.3s ease;
 }
 
 #profileEditForm {
+  width: max-content;
   display: grid;
   grid-template-columns: auto auto;
   margin-top: 20px;
+  transition: all 0.5s ease;
+}
+#profileEditForm:hover {
+  transform: scale(1.05);
+}
+
+#profileEditForm input {
+  min-width: 200px;
+  margin-right: 10px;
+}
+
+#editAbout {
+  grid-column: span 2 ;
+  min-width: 420px !important;
+  min-height: 200px;
+}
+
+#profileEditForm div {
+  margin: 10px;
 }
 
 #profileEditForm button {
@@ -274,7 +293,7 @@
   grid-row: span 2 ;
   margin-top: 20px;
   height: fit-content;
-  padding: 15px;
+  padding: 10px 20px;
 }
 
 .profile-avatar-border {

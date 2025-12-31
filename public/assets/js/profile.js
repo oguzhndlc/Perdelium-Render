@@ -16,7 +16,10 @@ document.getElementById("editName").value = user.name;
 document.getElementById("editSurname").value = user.surname;
 document.getElementById("editUsername").value = user.username;
 document.getElementById("editEmail").value = user.email;
-document.getElementById("editPhone").value = profile.phone || "";
+document.getElementById("editPhone").value = profile.phone
+  ? formatPhone(profile.phone)
+  : "";
+
 document.getElementById("editWebsite").value = profile.web_link || "";
 document.getElementById("editInstagram").value = profile.insta_link || "";
 document.getElementById("editAbout").value = profile.about || "";
@@ -43,17 +46,22 @@ cancelBtn.addEventListener("click", () => {
 document.getElementById("profileEditForm").addEventListener("submit", async e => {
   e.preventDefault();
 
+  const cleanPhone = document
+    .getElementById("editPhone")
+    .value.replace(/\s/g, "");
+
   const res = await fetch("/api/users/updateProfile", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       user_id: user.id,
-      phone: document.getElementById("editPhone").value,
+      phone: cleanPhone,
       about: document.getElementById("editAbout").value,
       insta_link: document.getElementById("editInstagram").value,
       web_link: document.getElementById("editWebsite").value,
     }),
   });
+
 
   const data = await res.json();
 
@@ -82,4 +90,37 @@ document.getElementById("profileEditForm").addEventListener("submit", async e =>
 
   alert("Profil güncellendi ✅");
   location.reload();
+});
+
+const phoneInput = document.getElementById("editPhone");
+
+function formatPhone(value) {
+  // sadece rakamlar
+  let digits = value.replace(/\D/g, "");
+
+  // HER ZAMAN 5 ile başlasın
+  if (!digits.startsWith("5")) {
+    digits = "5" + digits.replace(/^5+/, "");
+  }
+
+  // max 10 rakam
+  digits = digits.slice(0, 10);
+
+  // 555 333 4477 formatı
+  if (digits.length > 6) {
+    return digits.replace(/(\d{3})(\d{3})(\d+)/, "$1 $2 $3");
+  } else if (digits.length > 3) {
+    return digits.replace(/(\d{3})(\d+)/, "$1 $2");
+  }
+  return digits;
+}
+
+phoneInput.addEventListener("input", () => {
+  phoneInput.value = formatPhone(phoneInput.value);
+});
+
+phoneInput.addEventListener("focus", () => {
+  if (phoneInput.value.trim() === "") {
+    phoneInput.value = "5";
+  }
 });
