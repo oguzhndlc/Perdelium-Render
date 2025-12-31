@@ -23,20 +23,107 @@
           <button class="btn btn-accent">Eseri Kaydet</button>
         </div>
         <div class="col-md-6">
-          <input type="text" id="eserAd" class="form-control" placeholder="Eser Adı" required>
+          <input type="text" id="eserAd" name="eserAd" class="form-control" placeholder="Eser Adı" required>
         </div>
 
-        <div class="col-md-6">
-          <select id="eserTur" class="form-select" required>
-            <option value="">Tür Seç</option>
-            <option value="Klasik">Klasik</option>
-            <option value="Modern">Modern</option>
-            <option value="Komedi">Komedi</option>
-          </select>
-        </div>
+        <div class="row g-3">
+
+  <!-- Oyun Türü -->
+  <div class="col-md-6">
+    <select id="oyunTuru" name="oyunTuru" class="form-select" required>
+      <option value="">Oyun Türü Seç</option>
+      <option value="Trajedi">Trajedi</option>
+      <option value="Drama">Drama</option>
+      <option value="Komedi">Komedi</option>
+      <option value="Melodram">Melodram</option>
+      <option value="Opera">Opera</option>
+      <option value="Pandomim">Pandomim</option>
+      <option value="Tuluat">Tuluat</option>
+      <option value="Operet">Operet</option>
+      <option value="Müzikal">Müzikal</option>
+      <option value="Bale">Bale</option>
+      <option value="Revü">Revü</option>
+      <option value="Vodvil">Vodvil</option>
+      <option value="Diğer">Diğer</option>
+    </select>
+  </div>
+
+  <!-- Tema -->
+  <div class="col-md-6">
+    <select id="tema" name="tema" class="form-select" required>
+      <option value="">Tema Seç</option>
+      <option value="Aile">Aile</option>
+      <option value="Aşk">Aşk</option>
+      <option value="Toplumsal">Toplumsal</option>
+      <option value="Tarih">Tarih</option>
+      <option value="Psikoloji">Psikoloji</option>
+      <option value="Politik">Politik</option>
+      <option value="Fantastik">Fantastik</option>
+      <option value="Diğer">Diğer</option>
+    </select>
+  </div>
+
+  <!-- Süre -->
+  <div class="col-md-6">
+    <select id="sure" name="sure" class="form-select" required>
+      <option value="">Oyun Süresi Seç</option>
+      <option value="Kısa Oyun">Kısa Oyun</option>
+      <option value="Tek Perde">Tek Perde</option>
+      <option value="Çift Perde">Çift Perde</option>
+      <option value="3+ Perde">3+ Perde</option>
+    </select>
+  </div>
+
+  <!-- Yaş Grubu -->
+  <div class="col-md-6">
+    <select id="yasGrubu" name="yasGrubu" class="form-select" required>
+      <option value="">Yaş Grubu Seç</option>
+      <option value="Genel İzleyici">Genel İzleyici</option>
+      <option value="+13">+13</option>
+      <option value="+18">+18</option>
+    </select>
+  </div>
+
+  <!-- Oyuncu Sayısı -->
+  <div class="col-md-6">
+    <input
+      type="number"
+      id="oyuncuSayisi"
+      name="oyuncuSayisi"
+      class="form-control"
+      placeholder="Oyuncu Sayısı (örn: 5)"
+      min="1"
+      required
+    />
+  </div>
+
+  <!-- Oyuncu Cinsiyet Dağılımı -->
+  <div class="col-md-6 d-flex gap-2">
+    <input
+      type="number"
+      id="erkekOyuncu"
+      name="erkekOyuncu"
+      class="form-control"
+      placeholder="Erkek (E)"
+      min="0"
+      required
+    />
+    <input
+      type="number"
+      id="kadinOyuncu"
+      name="kadinOyuncu"
+      class="form-control"
+      placeholder="Kadın (K)"
+      min="0"
+      required
+    />
+  </div>
+
+</div>
+
 
         <div class="col-12">
-          <textarea id="eserAciklama" class="form-control" rows="3" placeholder="Açıklama"></textarea>
+          <textarea id="eserAciklama" name="eserAciklama" class="form-control" rows="3" placeholder="Açıklama"></textarea>
         </div>
 
 
@@ -48,7 +135,7 @@
 
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/eser-ekle.js"></script>
 </body>
