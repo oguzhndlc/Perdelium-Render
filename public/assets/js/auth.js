@@ -3,89 +3,132 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   const registerForm = document.getElementById("registerForm");
 
-if (loginForm) {
-  loginForm.addEventListener("submit", async e => {
-    e.preventDefault();
+  /* =========================
+     LOGIN
+  ========================= */
+  if (loginForm) {
+    loginForm.addEventListener("submit", async e => {
+      e.preventDefault();
 
-  const identifier = document.getElementById("loginIdentifier").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
+      const identifier = document.getElementById("loginIdentifier").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
 
-    const res = await fetch("/api/users/signin", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ identifier, password }),
-  });
+      try {
+        const res = await fetch("/api/users/signin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ identifier, password })
+        });
 
-  const text = await res.text();
-  const data = JSON.parse(text);
+        const data = await res.json();
 
-  if (!res.ok) {
-    alert("Giriş başarısız");
-    return;
+        if (!res.ok) {
+          alert(data.error || "Giriş başarısız");
+          return;
+        }
+
+        localStorage.setItem("access_token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        window.location.href = "/index.html";
+
+      } catch (err) {
+        console.error("Login hatası:", err);
+        alert("Sunucuya bağlanılamadı");
+      }
+    });
   }
 
-    localStorage.setItem("access_token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
-    window.location.href = "/index.html";
-  });
-}
-
-
+  /* =========================
+     REGISTER
+  ========================= */
   if (registerForm) {
+
+    const passwordInput = document.getElementById("registerPassword");
+
+    const rules = {
+      length: document.getElementById("rule-length"),
+      upper: document.getElementById("rule-upper"),
+      lower: document.getElementById("rule-lower"),
+      number: document.getElementById("rule-number"),
+      special: document.getElementById("rule-special")
+    };
+
+    // 🔐 Canlı kriter kontrolü
+    passwordInput.addEventListener("input", () => {
+      const value = passwordInput.value;
+
+      toggleRule(rules.length, value.length >= 8);
+      toggleRule(rules.upper, /[A-Z]/.test(value));
+      toggleRule(rules.lower, /[a-z]/.test(value));
+      toggleRule(rules.number, /\d/.test(value));
+      toggleRule(rules.special, /[^A-Za-z0-9]/.test(value));
+    });
+
+    function toggleRule(element, condition) {
+      if (condition) {
+        element.classList.add("valid");
+      } else {
+        element.classList.remove("valid");
+      }
+    }
+
     registerForm.addEventListener("submit", async e => {
       e.preventDefault();
 
-        const name = document.getElementById("registerName").value.trim();
-        const email = document.getElementById("registerEmail").value.trim();
-        const surname = document.getElementById("registerSurname").value.trim();
-        const username = document.getElementById("registerUsername").value.trim();
-        const password = document.getElementById("registerPassword").value.trim();
-        const confirmPassword = document.getElementById("registerPassword2").value.trim();
+      const name = document.getElementById("registerName").value.trim();
+      const surname = document.getElementById("registerSurname").value.trim();
+      const email = document.getElementById("registerEmail").value.trim();
+      const username = document.getElementById("registerUsername").value.trim();
+      const password = passwordInput.value.trim();
+      const confirmPassword =
+        document.getElementById("registerPassword2").value.trim();
 
-          if (!name || !surname) {
-            alert("İsim ve soyisim eksik girildi!");
-            return;
-          }
-          if (!email) {
-            alert("Email eksik girildi!");
-            return;
-          }
-          if (!username) {
-            alert("Kullanıcı adı eksik girildi!");
-            return;
-          }
-          if (!password || !confirmPassword) {
-            alert("Şifre alanları eksik girildi!");
-            return;
-          }
+      if (!name || !surname || !email || !username || !password) {
+        alert("Tüm alanları doldurun");
+        return;
+      }
 
       if (password !== confirmPassword) {
         alert("Şifreler uyuşmuyor");
         return;
       }
-  try {
-    const response = await fetch("/api/users/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: name, 
-        email: email, 
-        surname: surname, 
-        username: username, 
-        password: password}),
+
+      const isPasswordStrong = Object.values(rules).every(rule =>
+        rule.classList.contains("valid")
+      );
+
+      if (!isPasswordStrong) {
+        alert("Şifre kriterlerinin tamamı sağlanmalıdır");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/users/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            surname,
+            email,
+            username,
+            password
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert(data.error || "Kayıt başarısız");
+          return;
+        }
+
+        console.log("Kayıt başarılı:", data);
+        window.location.href = "/index.html";
+
+      } catch (error) {
+        console.error("Register hatası:", error);
+        alert("Sunucuya bağlanılamadı");
+      }
     });
-
-    if (response.ok) {
-      const result = await response.json();
-      console.log("Başarıyla kaydedildi:", result);
-    } else {
-      const errorData = await response.json();
-      console.error("Sunucu hatası:", errorData);
-    }
-  } catch (error) {
-    console.error("İstek gönderilemedi:", error);
   }
-
-    });
-  }
-
 });

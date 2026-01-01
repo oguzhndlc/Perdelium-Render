@@ -17,7 +17,12 @@
   <!-- 🔽 NAVBAR BURAYA OTOMATİK GELECEK -->
   <div id="navbar"></div>
 
-  <main class="container">
+<div id="pageLoader" class="page-loader">
+  <div class="spinner"></div>
+  <p>Anasayfa yükleniyor...</p>
+</div>
+
+  <main id="pageContent" style="display:none;" class="container">
     <section class="hero">
   <div class="hero-overlay"></div>
 
@@ -50,49 +55,9 @@
   </div>
 </section>
 
-    <h1>Anasayfa</h1>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/main.js"></script>
-  <script>
-    // Örnek veri
-    const script_one = {
-        name: "Macbeth",
-        writer: "William Shakespeare",
-        exp: "Macbeth, hırslı bir İskoç generalidir. Ülkesine sadık bir askerken, üç cadının kehanetiyle kral olma arzusu uyanır.",
-    };
-
-    const script_two = {
-        name: "Hamlet",
-        writer: "William Shakespeare",
-        exp: "Hamlet, Danimarka Prensi, babasının ölümünden sonra derin bir kedere bürünür. Annesi Gertrude'un amcası .",
-    };
-
-    const script_three = {
-        name: "Kral Lear",
-        writer: "William Shakespeare",
-        exp: "Kral Lear, yaşlandıkça krallığını üç kızı arasında paylaştırmaya karar verir. Ancak, en büyük kızı Goneril",
-    };
-
-    const scripts = [script_one, script_two, script_three];
-
-    const scriptCardsContainer = document.getElementById("scriptCards");
-
-    for (let i = 0; i < 3; i++) {
-    scriptCardsContainer.innerHTML += `
-      <div class="col-md-4">
-        <div class="play-card">
-          <div class="play-info">
-            <h5 id="scriptName">${scripts[i].name}</h5>
-            <p id="scriptWriter">${scripts[i].writer}</p>
-            <p id="scriptExp">${scripts[i].exp}</p>
-            <button id="scriptDetails" class="btn btn-sm btn-outline-light">
-                Detay
-            </button>
-          </div>
-        </div>
-      </div>
-    `;}
-  </script>
+  <script src="assets/js/index.js"></script>
 </body>

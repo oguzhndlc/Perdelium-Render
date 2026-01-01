@@ -1,3 +1,6 @@
+const loader = document.getElementById("pageLoader");
+const content = document.getElementById("pageContent");
+
 const user = JSON.parse(localStorage.getItem("user"));
 
 if (!user) {
@@ -24,6 +27,9 @@ document.getElementById("editWebsite").value = profile.web_link || "";
 document.getElementById("editInstagram").value = profile.insta_link || "";
 document.getElementById("editAbout").value = profile.about || "";
 
+
+loader.style.display = "none";
+content.style.display = "block";
 // Düzenleme butonları
 
 const editBtn = document.getElementById("editProfileBtn");
@@ -124,3 +130,40 @@ phoneInput.addEventListener("focus", () => {
     phoneInput.value = "5";
   }
 });
+
+function deleteAccount() {
+  const confirmText = prompt(
+    "Hesabını silmek için EVET yaz (geri alınamaz!)"
+  );
+
+  if (confirmText !== "EVET") {
+    alert("Hesap silme iptal edildi");
+    return;
+  }
+
+  const token = localStorage.getItem("access_token");
+
+  fetch("/api/users/accdel", {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then(async res => {
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text);
+    }
+    return res.json();
+  })
+  .then(() => {
+    alert("Hesabın silindi. Güle güle 😢");
+
+    localStorage.clear();
+    location.href = "/";
+  })
+  .catch(err => {
+    console.error("Hesap silme hatası:", err.message);
+    alert("Hesap silinemedi");
+  });
+}

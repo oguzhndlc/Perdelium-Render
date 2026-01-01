@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kullanıcı Profili | Tiyatro</title>
+
+  <!-- Bootstrap -->
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Tema -->
+  <link rel="stylesheet" href="/assets/css/theme.css">
+  <link rel="stylesheet" href="/assets/css/navbar.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div id="navbar"></div>
+    <!-- LOADING -->
+<div id="pageLoader" class="page-loader">
+  <div class="spinner"></div>
+  <p>Profil yükleniyor...</p>
+</div>
+
+  <main id="pageContent" style="display:none;" class="container profile-page">
+
+    <!-- PROFİL ÜST ALANI -->
+    <div class="d-flex align-items-center mb-5">
+
+      <!-- Avatar -->
+      <div class="profile-avatar-border">
+        <img
+          id="profileAvatar"
+          src="/assets/img/default-avatar.png"
+          class="profile-avatar"
+          alt="Kullanıcı Avatarı">
+      </div>
+
+      <!-- Bilgiler -->
+      <div class="ms-4">
+        <h2 id="profileUsername" class="eser-baslik">
+          Kullanıcı Adı
+        </h2>
+
+        <p id="profileName" class="eser-yazar">
+          Ad Soyad
+        </p>
+
+        <p id="profileAbout" class="eser-aciklama">
+          Kullanıcı hakkında bilgi henüz girilmemiş.
+        </p>
+      </div>
+    </div>
+
+    <!-- KULLANICININ ESERLERİ -->
+    <section>
+      <h3 class="section-title">Paylaştığı Eserler</h3>
+
+      <div class="row g-4" id="kullaniciEserleri">
+        <!-- JS ile dolacak -->
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/user-profile.js"></script>
+</body>
+</html>

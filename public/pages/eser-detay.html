@@ -17,14 +17,14 @@
   <!-- Navbar -->
   <div id="navbar"></div>
 
-  <main class="container eser-detay">
+<div id="pageLoader" class="page-loader">
+  <div class="spinner"></div>
+  <p>Eser Yükleniyor...</p>
+</div>
+
+  <main id="pageContent" style="display:none;" class="container eser-detay">
 
     <div class="row align-items-center">
-
-      <!-- Afiş -->
-      <div class="col-md-5">
-        <img id="eserAfis" class="img-fluid eser-afis" alt="Eser Afişi">
-      </div>
 
       <!-- Bilgiler -->
       <div class="col-md-7">
@@ -35,13 +35,21 @@
 
         <div class="eser-meta">
           <span id="eserTur"></span>
+          <span id="eserTema"></span>
+          <span id="eserSure"></span>
+          <span id="eserYasGrubu"></span>
+          <span id="eserOyuncuSayisi"></span>
+          <span id="eserErkekOyuncu"></span>
+          <span id="eserKadinOyuncu"></span>
         </div>
 
-        <a href="#" class="btn btn-accent mt-3">Favorilere Ekle</a>
+        <a id="addFavorites" href="#" class="btn btn-accent mt-3">Favorilere Ekle</a>
       </div>
 
     </div>
-
+    <div class="col-md-5" id="content-area">
+      <!-- İçerik buraya yüklenecek -->
+    </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

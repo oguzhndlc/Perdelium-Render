@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const supabase = require("../lib/supabase");
 const jwt = require("jsonwebtoken");
+const { isStrongPassword } = require("../utils/passwordValidator");
 
 exports.register = async (req, res) => {
   try {
@@ -9,6 +10,15 @@ exports.register = async (req, res) => {
     if (!email || !username || !password) {
       return res.status(400).json({ error: "Zorunlu alanlar eksik" });
     }
+
+        // 🔐 ŞİFRE GÜCÜ KONTROLÜ
+    if (!isStrongPassword(password)) {
+      return res.status(400).json({
+        error:
+          "Şifre en az 8 karakter, büyük harf, küçük harf, sayı ve özel karakter içermelidir"
+      });
+    }
+
 
     // 🔐 bcrypt hash
     const password_hash = await bcrypt.hash(password, 10);
@@ -185,5 +195,109 @@ exports.updateProfile = async (req, res) => {
       error: "Server error",
       message: err.message,
     });
+  }
+};
+
+// routes/users.js veya controller dosyan
+
+exports.getUserByUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    if (!username) {
+      return res.status(400).json({ error: "Username gerekli" });
+    }
+
+    // 👤 Kullanıcı
+    const { data: user, error: userError } = await supabase
+      .from("users")
+      .select(`
+        id,
+        username,
+        name,
+        surname,
+        created_at,
+        user_profiles (
+          about,
+          avatar_url
+        )
+      `)
+      .eq("username", username)
+      .single();
+
+    if (userError || !user) {
+      return res.status(404).json({ error: "Kullanıcı bulunamadı" });
+    }
+
+    // 🎭 Kullanıcının eserleri
+    const { data: contents, error: contentError } = await supabase
+      .from("contents")
+      .select(`
+        id,
+        title,
+        explanation,
+        created_at
+      `)
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    if (contentError) {
+      return res.status(500).json({ error: "Eserler alınamadı" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      user,
+      contents
+    });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Sunucu hatası" });
+  }
+};
+
+exports.deleteAccount = async (req, res) => {
+  try {
+    const userId = req.user.id; // 🔐 token’dan geliyor
+
+    // 1️⃣ Kullanıcının içeriklerini sil
+    const { error: contentError } = await supabase
+      .from("contents")
+      .delete()
+      .eq("user_id", userId);
+
+    if (contentError) {
+      return res.status(500).json({ error: "İçerikler silinemedi" });
+    }
+
+    // 2️⃣ Profil sil
+    const { error: profileError } = await supabase
+      .from("user_profiles")
+      .delete()
+      .eq("user_id", userId);
+
+    if (profileError) {
+      return res.status(500).json({ error: "Profil silinemedi" });
+    }
+
+    // 3️⃣ Kullanıcı sil
+    const { error: userError } = await supabase
+      .from("users")
+      .delete()
+      .eq("id", userId);
+
+    if (userError) {
+      return res.status(500).json({ error: "Hesap silinemedi" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Hesap başarıyla silindi"
+    });
+
+  } catch (err) {
+    console.error("DELETE ACCOUNT ERROR:", err);
+    return res.status(500).json({ error: "Sunucu hatası" });
   }
 };

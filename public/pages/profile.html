@@ -11,13 +11,29 @@
   <link rel="stylesheet" href="/assets/css/theme.css">
   <link rel="stylesheet" href="/assets/css/navbar.css">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    #deleteAccountBtn{
+      border: none;
+      transition: all 0.5s ease;
+    }
+    #deleteAccountBtn:hover{
+      background-color: rgb(100, 4, 4);
+      transform: translateY(-5px);
+      color: aliceblue;
+    }
+  </style>
 </head>
 <body>
-
+  
   <!-- Navbar -->
   <div id="navbar"></div>
+<!-- LOADING -->
+<div id="pageLoader" class="page-loader">
+  <div class="spinner"></div>
+  <p>Profil yükleniyor...</p>
+</div>
 
-  <main class="container profile-page">
+  <main id="pageContent" style="display:none;" class="container profile-page">
 
     <h1 class="page-title">Profilim</h1>
     <div class="profile-container">
@@ -87,6 +103,9 @@
       <button class="btn btn-accent">Kaydet</button>
       <button type="button" class="btn btn-outline-light" id="cancelEditBtn">
         Vazgeç
+      </button>
+      <button type="button" class="btn btn-outline-light btn-secondary" id="deleteAccountBtn" onclick="deleteAccount()">
+        Hesabı Sil
       </button>
     </div>
     </div>

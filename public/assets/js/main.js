@@ -73,3 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 });
+
+function contentDetailRedirect(id) {
+  window.location.href = `/pages/eser-detay.html?id=${id}`;
+}
+
+function profileRedirect(username) {
+  window.location.href = `/pages/user-profile.html?username=${username}`;
+}
+

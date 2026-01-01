@@ -1,40 +1,107 @@
-const eserler = [
-  {
-    id: 1,
-    ad: "Hamlet",
-    yazar: "William Shakespeare",
-    tur: "Klasik",
-    aciklama: "Danimarka Prensi Hamlet'in intikam hikâyesi.",
-    afis: "/assets/images/ornek1.jpg"
-  },
-  {
-    id: 2,
-    ad: "Keşanlı Ali",
-    yazar: "Haldun Taner",
-    tur: "Modern",
-    aciklama: "Toplumsal taşlama içeren epik müzikal.",
-    afis: "/assets/images/ornek2.jpg"
-  },
-  {
-    id: 3,
-    ad: "Bir Delinin Hatıra Defteri",
-    yazar: "Nikolay Gogol",
-    tur: "Komedi",
-    aciklama: "Bir memurun deliliğe sürüklenişi.",
-    afis: "/assets/images/ornek3.jpg"
-  }
-];
-
+const loader = document.getElementById("pageLoader");
+const content = document.getElementById("pageContent");
 // URL'den id al
 const params = new URLSearchParams(window.location.search);
-const eserId = parseInt(params.get("id"));
+const eserId = params.get("id");
 
-const eser = eserler.find(e => e.id === eserId);
-
-if (eser) {
-  document.getElementById("eserAd").textContent = eser.ad;
-  document.getElementById("eserYazar").textContent = eser.yazar;
-  document.getElementById("eserAciklama").textContent = eser.aciklama;
-  document.getElementById("eserTur").textContent = eser.tur;
-  document.getElementById("eserAfis").src = eser.afis;
+if (!eserId) {
+  console.error("Eser ID bulunamadı");
 }
+
+// 🔥 Detay verisini backend'den al
+fetch(`/api/contents/${eserId}`)
+  .then(res => res.json())
+  .then(data => {
+    const eser = data.content;
+
+    if (!eser) {
+      console.error("Eser bulunamadı");
+      return;
+    }
+
+    const tag = eser.content_tags?.[0];
+
+    document.getElementById("eserAd").textContent = eser.title;
+    document.getElementById("eserYazar").textContent =
+      eser.users?.username ?? "Bilinmeyen";
+
+    document.getElementById("eserYazar").onclick = function() {
+      profileRedirect(eser.users?.username);
+    }
+
+    document.getElementById("eserAciklama").textContent =
+      eser.explanation ?? "";
+
+    document.getElementById("eserTur").textContent =
+      tag?.type ?? "-";
+    document.getElementById("eserTema").textContent =
+      tag?.theme ?? "-";
+    document.getElementById("eserSure").textContent = 
+      tag?.time ?? "-";
+    document.getElementById("eserYasGrubu").textContent =
+      tag?.age_limit ?? "-";
+    document.getElementById("eserOyuncuSayisi").textContent ="Oyuncu Sayısı: " +
+      tag?.cast_count ?? "-";
+    document.getElementById("eserErkekOyuncu").textContent ="Erkek Oyuncu: " +
+      tag?.male_cast_count ?? "-";
+    document.getElementById("eserKadinOyuncu").textContent ="Kadın Oyuncu: " +
+      tag?.female_cast_count ?? "-";
+
+    document.getElementById("content-area").innerHTML =
+      eser.html_content ?? "<p>İçerik bulunamadı.</p>";
+
+    if (eser.cover_url) {
+      document.getElementById("eserAfis").src = eser.cover_url;
+    }
+
+    loader.style.display = "none";
+    content.style.display = "block";
+
+    
+  
+      document.getElementById("addFavorites").onclick = function() {
+      addToFavorites(eser.id);
+    }
+
+
+  async function addToFavorites(contentId) {
+  const token = localStorage.getItem("access_token");
+
+  if (!token) {
+    alert("Favorilere eklemek için giriş yapmalısınız");
+    window.location.href = "/pages/login.html";
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/contents/:contentId", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        content_id: contentId
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Favorilere eklenemedi");
+      return;
+    }
+
+    alert("Favorilere eklendi ❤️");
+
+  } catch (err) {
+    console.error("Favori ekleme hatası:", err);
+    alert("Sunucu hatası");
+  }
+}
+
+
+  })
+  .catch(err => {
+    console.error("Eser alınamadı:", err);
+  });

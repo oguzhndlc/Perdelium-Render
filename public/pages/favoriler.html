@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Favori Eserlerim | Tiyatro</title>
+
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/theme.css">
+  <link rel="stylesheet" href="/assets/css/navbar.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- 🔄 LOADER -->
+  <div id="pageLoader" class="page-loader">
+    <div class="spinner"></div>
+    <p>Favorileriniz Yükleniyor...</p>
+  </div>
+
+  <!-- 📌 SAYFA İÇERİĞİ -->
+  <main id="pageContent" style="display:none;" class="container eser-yonetim-page">
+
+    <h1 class="page-title">⭐ Favori Eserlerim</h1>
+
+    <div class="row g-4" id="favorilerList">
+      <!-- JS dolduracak -->
+    </div>
+
+    <!-- Boş durum -->
+    <div id="emptyState"
+         class="text-center text-muted mt-5 d-none">
+      Henüz favorilere eklenmiş bir eser yok.
+    </div>
+
+  </main>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/favoriler.js"></script>
+
+</body>
+</html>

@@ -5,7 +5,7 @@
   <title>Eserler | Tiyatro</title>
 
   <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Tema -->
   <link rel="stylesheet" href="/assets/css/theme.css">
@@ -17,7 +17,12 @@
   <!-- Navbar -->
   <div id="navbar"></div>
 
-  <main class="container eserler-page">
+<div id="pageLoader" class="page-loader">
+  <div class="spinner"></div>
+  <p>Eserler Yükleniyor...</p>
+</div>
+
+  <main id="pageContent" style="display:none;" class="container eserler-page">
 
     <h1 class="page-title">Eserler</h1>
 
@@ -27,15 +32,90 @@
         <input type="text" id="searchInput" class="form-control" placeholder="Eser veya yazar ara">
       </div>
 
-      <div class="col-md-3">
-        <select id="genreFilter" class="form-select">
-          <option value="">Tüm Türler</option>
-          <option value="klasik">Klasik</option>
-          <option value="modern">Modern</option>
-          <option value="komedi">Komedi</option>
-        </select>
-      </div>
-    </div>
+  <!-- Oyun Türü -->
+  <div class="col-md-4">
+    <select id="oyunTuruFilter" name="oyunTuru" class="form-select">
+      <option value="">Oyun Türü Seç</option>
+      <option value="Trajedi">Trajedi</option>
+      <option value="Drama">Drama</option>
+      <option value="Komedi">Komedi</option>
+      <option value="Melodram">Melodram</option>
+      <option value="Opera">Opera</option>
+      <option value="Pandomim">Pandomim</option>
+      <option value="Tuluat">Tuluat</option>
+      <option value="Operet">Operet</option>
+      <option value="Müzikal">Müzikal</option>
+      <option value="Bale">Bale</option>
+      <option value="Revü">Revü</option>
+      <option value="Vodvil">Vodvil</option>
+      <option value="Diğer">Diğer</option>
+    </select>
+  </div>
+
+    <div class="col-md-4">
+    <select id="temaFilter" name="tema" class="form-select">
+      <option value="">Tema Seç</option>
+      <option value="Aile">Aile</option>
+      <option value="Aşk">Aşk</option>
+      <option value="Toplumsal">Toplumsal</option>
+      <option value="Tarih">Tarih</option>
+      <option value="Psikoloji">Psikoloji</option>
+      <option value="Politik">Politik</option>
+      <option value="Fantastik">Fantastik</option>
+      <option value="Diğer">Diğer</option>
+    </select>
+  </div>
+
+
+
+    <div class="mt-10 col-md-2">
+    <input
+      type="number"
+      id="oyuncuSayisiFilter"
+      name="oyuncuSayisi"
+      class="form-control"
+      placeholder="Oyuncu Sayısı"
+      min="1"
+    />
+  </div>
+
+    <div class="mt-10 col-md-2 d-flex gap-2">
+    <input
+      type="number"
+      id="erkekOyuncuFilter"
+      name="erkekOyuncu"
+      class="form-control"
+      placeholder="Erkek"
+      min="0"
+    />
+    <input
+      type="number"
+      id="kadinOyuncuFilter"
+      name="kadinOyuncu"
+      class="form-control"
+      placeholder="Kadın"
+      min="0"
+    />
+  </div>
+
+      <div class="col-md-4">
+    <select id="sureFilter" name="sure" class="mt-10 form-select">
+      <option value="">Oyun Süresi Seç</option>
+      <option value="Kısa Oyun">Kısa Oyun</option>
+      <option value="Tek Perde">Tek Perde</option>
+      <option value="Çift Perde">Çift Perde</option>
+      <option value="3+ Perde">3+ Perde</option>
+    </select>
+  </div>
+
+    <div class="col-md-4">
+    <select id="yasGrubuFilter" name="yasGrubu" class="mt-10 form-select">
+      <option value="">Yaş Grubu Seç</option>
+      <option value="Genel İzleyici">Genel İzleyici</option>
+      <option value="+13">+13</option>
+      <option value="+18">+18</option>
+    </select>
+  </div>
 
     <!-- Eser Listesi -->
     <div class="row g-4" id="eserListesi">
@@ -45,7 +125,7 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/js/main.js"></script>
   <script src="/assets/js/eserler.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>

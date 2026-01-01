@@ -1,7 +1,13 @@
+const loader = document.getElementById("pageLoader");
+const content = document.getElementById("pageContent");
+
 const user = JSON.parse(localStorage.getItem("user"));
 const token = localStorage.getItem("access_token");
 
 if (!user || !token) location.href = "/pages/login.html";
+
+loader.style.display = "none";
+content.style.display = "block";
 
 document.getElementById("eserForm").addEventListener("submit", e => {
   e.preventDefault();
