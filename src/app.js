@@ -1,10 +1,13 @@
 const express = require("express");
+const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const contentRoutes = require("./routes/contentRoutes");
 const favoriteRoutes = require("./routes/favoriteRoutes");
 const path = require("path");
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
