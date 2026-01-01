@@ -4,6 +4,8 @@ const content = document.getElementById("pageContent");
 const params = new URLSearchParams(window.location.search);
 const eserId = params.get("id");
 
+checkFavorite(eserId);
+
 if (!eserId) {
   console.error("Eser ID bulunamadı");
 }
@@ -23,6 +25,10 @@ fetch(`/api/contents/${eserId}`)
 
     document.getElementById("eserAd").textContent = eser.title;
     document.getElementById("eserYazar").textContent =
+      eser.users?.username ?? "Bilinmeyen";
+
+    document.getElementById("bookAd").textContent = eser.title;
+    document.getElementById("bookYazar").textContent =
       eser.users?.username ?? "Bilinmeyen";
 
     document.getElementById("eserYazar").onclick = function() {
@@ -74,7 +80,7 @@ fetch(`/api/contents/${eserId}`)
   }
 
   try {
-    const res = await fetch("/api/contents/:contentId", {
+    const res = await fetch(`/api/favorites/${contentId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +99,7 @@ fetch(`/api/contents/${eserId}`)
     }
 
     alert("Favorilere eklendi ❤️");
-
+    favorilendi("addFavorites")
   } catch (err) {
     console.error("Favori ekleme hatası:", err);
     alert("Sunucu hatası");
@@ -105,3 +111,26 @@ fetch(`/api/contents/${eserId}`)
   .catch(err => {
     console.error("Eser alınamadı:", err);
   });
+
+  async function checkFavorite(contentId) {
+  const token = localStorage.getItem("access_token");
+  if (!token) return;
+
+  const res = await fetch(`/api/favorites/${contentId}/is-favorite`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  const data = await res.json();
+
+  if (data.isFavorite) {
+    favorilendi("addFavorites")
+  }
+}
+
+function favorilendi(btn){
+    const favoritebtn = document.getElementById(btn);
+    favoritebtn.style.backgroundColor="blue";
+    favoritebtn.textContent="✔️ Favorilere eklendi"
+}
