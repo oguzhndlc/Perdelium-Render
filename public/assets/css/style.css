@@ -202,8 +202,6 @@
   box-shadow: 0 20px 40px rgba(0,0,0,.6);
   padding: 20px;
   border-radius: 12px;
-  background-color: var(--bg-card);
-  margin-top: 40px;
 }
 
 .eser-yazar {
