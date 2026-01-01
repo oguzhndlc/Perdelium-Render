@@ -513,8 +513,19 @@ p {
 	right: 20px;
 	top: 0;
 	bottom: 0;
-	background-color: #b11509;
 }
+
+.book-decoration{
+  --a: 120deg; /* control the angle */
+  --s: 50px; /* size of the zig-zag */
+  --b: 35px;  /* control the thickness */
+  
+  background:linear-gradient(to right,black,rgb(29, 2, 2),#4b0505,rgb(29, 2, 2),black);
+  height: calc(var(--b) + var(--s)/(2*tan(var(--a)/2)));
+  width: 455px;
+  --_g:var(--s) repeat-x conic-gradient(from calc(var(--a)/-2) at bottom,
+    #0000,#000 1deg calc(var(--a) - 1deg),#0000 var(--a));
+  mask: 50% calc(-1*var(--b))/var(--_g) exclude,50%/var(--_g);}
 
 .book-cover h1 {
 	font-family: "Petemoss", cursive;
